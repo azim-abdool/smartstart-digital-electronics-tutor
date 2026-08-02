@@ -10,7 +10,7 @@
   const modules = [
     { id: "digital-foundations", number: "1", label: "Digital Foundations", status: "available" },
     { id: "logic-fundamentals", number: "2", label: "Logic Fundamentals", status: "available" },
-    { id: "boolean-design", number: "3", label: "Boolean Design", status: "planned" },
+    { id: "boolean-design", number: "3", label: "Boolean Design", status: "partial" },
     { id: "data-representation", number: "4", label: "Data Representation", status: "planned" },
     { id: "combinational-circuits", number: "5", label: "Combinational Circuits", status: "partial" },
     { id: "sequential-logic", number: "6", label: "Sequential Logic", status: "planned" },
@@ -87,7 +87,7 @@
   globalObject.SmartStartProgress = Progress;
 
   function updateProgressViews() {
-    const ids = ["digital-values", "logic-gates", "decoder"];
+    const ids = ["digital-values", "logic-gates", "boolean-algebra", "boolean-truth-tables", "canonical-forms", "decoder"];
     const count = Progress.count(ids);
     document.querySelectorAll("[data-global-progress]").forEach(progress => {
       progress.max = ids.length;

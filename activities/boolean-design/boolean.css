@@ -1,0 +1,61 @@
+.activity-hero { padding: clamp(2rem, 5vw, 4.2rem) 0; color: white; background: linear-gradient(135deg, #17324d, #00629b 68%, #00a4d6); }
+.activity-hero .content-wrap { padding-top: 0; padding-bottom: 0; }
+.activity-hero h1 { margin: 0; color: white; font-size: clamp(2rem, 4.5vw, 3.4rem); }
+.activity-hero p:last-child { max-width: 850px; margin-bottom: 0; color: #e7f7fc; font-size: 1.05rem; }
+.activity-panel { margin-top: 1.25rem; padding: clamp(1rem, 3vw, 1.7rem); border: 1px solid var(--line); border-radius: 1rem; background: white; box-shadow: var(--shadow); }
+.section-heading { display: flex; justify-content: space-between; gap: 1.5rem; align-items: start; margin-bottom: 1.1rem; }
+.section-heading h2 { margin: .15rem 0 0; }
+.step { margin: 0; color: var(--ieee-blue); font-size: .75rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+.instruction { max-width: 610px; margin: 0; color: var(--muted); }
+.notation-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; }
+.notation-card, .law-card, .expression-card, .summary-card { padding: 1rem; border: 1px solid var(--line); border-radius: .75rem; background: #fbfdff; }
+.notation-card strong, .law-card strong { display: block; color: var(--ieee-blue-dark); font-size: 1.15rem; }
+.law-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .85rem; }
+.law-card button { width: 100%; min-height: 3.2rem; padding: .7rem; border: 1px solid #a9bbc8; border-radius: .55rem; color: var(--ieee-blue-dark); background: white; font-weight: 850; cursor: pointer; text-align: left; }
+.law-card button[aria-pressed="true"] { border-color: var(--ieee-blue); background: var(--surface-blue); }
+.law-detail { margin-top: .65rem; color: var(--muted); }
+.duality-grid, .truth-workspace, .canonical-grid { display: grid; grid-template-columns: minmax(260px, .9fr) minmax(0, 1.3fr); gap: 1rem; align-items: start; }
+.formula { color: var(--ieee-blue-dark); font-size: clamp(1.15rem, 2vw, 1.5rem); font-weight: 900; overflow-wrap: anywhere; }
+.dual-pairs { display: grid; gap: .55rem; margin: .8rem 0; }
+.dual-pair { display: grid; grid-template-columns: 1fr auto 1fr; gap: .65rem; align-items: center; padding: .6rem .75rem; border-radius: .55rem; background: var(--surface-soft); }
+.dual-pair span:nth-child(2) { color: var(--muted); font-weight: 900; }
+.control-stack { display: grid; gap: .8rem; }
+.control-stack label { display: grid; gap: .3rem; color: var(--ieee-blue-dark); font-weight: 800; }
+select, input[type="text"] { min-height: 2.65rem; padding: .5rem .65rem; border: 1px solid #9caab6; border-radius: .5rem; background: white; }
+.action-row { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1rem; }
+.action-button { min-height: 2.7rem; padding: .62rem .95rem; border: 1px solid var(--ieee-blue); border-radius: .55rem; font-weight: 850; cursor: pointer; }
+.action-button.primary { color: white; background: var(--ieee-blue); }
+.action-button.secondary { color: var(--ieee-blue); background: white; }
+.feedback { margin-top: 1rem; padding: .9rem 1rem; border-left: .35rem solid var(--ieee-blue); border-radius: .3rem; background: var(--surface-blue); }
+.feedback.correct { border-color: var(--success); color: #0d5a38; background: var(--success-soft); }
+.feedback.incorrect { border-color: #b42318; color: #7a2119; background: #fff0ee; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+caption { padding: 0 0 .7rem; color: var(--ieee-blue-dark); font-weight: 850; text-align: left; }
+th, td { min-width: 3rem; padding: .58rem .48rem; border: 1px solid var(--line); text-align: center; }
+th { color: white; background: var(--ieee-blue-dark); }
+td.expression-cell { min-width: 7rem; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+tbody tr.highlight { background: #fff8dc; outline: .17rem solid #f6b700; outline-offset: -.17rem; }
+td select { min-width: 4rem; text-align: center; }
+td select.correct { border-color: var(--success); background: var(--success-soft); }
+td select.incorrect { border-color: #b42318; background: #fff0ee; }
+.bit-button { min-width: 2.9rem; min-height: 2.55rem; border: 1px solid #8ca0af; border-radius: .45rem; background: white; font-weight: 900; cursor: pointer; }
+.bit-button.on { border-color: var(--ieee-blue); color: white; background: var(--ieee-blue); }
+.index-selector { display: grid; grid-template-columns: repeat(4, 1fr); gap: .55rem; }
+.index-selector button { min-height: 2.7rem; border: 1px solid #9db0bd; border-radius: .5rem; background: white; font-weight: 850; cursor: pointer; }
+.index-selector button.active { color: white; background: var(--ieee-blue); border-color: var(--ieee-blue); }
+.term-display { display: grid; gap: .75rem; }
+.term-display .summary-card { border-left: .35rem solid var(--ieee-blue); }
+.function-builder { display: grid; gap: 1rem; }
+.output-grid { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: .45rem; }
+.output-grid label { display: grid; gap: .3rem; text-align: center; color: var(--muted); font-size: .78rem; font-weight: 800; }
+.output-grid button { min-height: 2.75rem; border: 1px solid #9db0bd; border-radius: .45rem; background: white; font-weight: 900; cursor: pointer; }
+.output-grid button.on { color: white; background: var(--ieee-blue); border-color: var(--ieee-blue); }
+.canonical-results { display: grid; gap: .75rem; }
+.canonical-results code { display: block; padding: .8rem; border-radius: .5rem; color: var(--ieee-blue-dark); background: #f3f8fb; font-size: 1rem; white-space: normal; overflow-wrap: anywhere; }
+.choice-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: .65rem; }
+.choice-grid label { display: flex; gap: .55rem; align-items: center; min-height: 2.8rem; padding: .55rem .65rem; border: 1px solid var(--line); border-radius: .5rem; background: white; }
+.callout { padding: 1rem 1.05rem; border-left: .35rem solid var(--ieee-blue); border-radius: .3rem; background: var(--surface-blue); }
+.callout h3 { margin-top: 0; }
+@media (max-width: 900px) { .duality-grid, .truth-workspace, .canonical-grid { grid-template-columns: 1fr; }.output-grid { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 650px) { .section-heading { flex-direction: column; gap: .5rem; }.notation-strip, .law-grid, .choice-grid { grid-template-columns: 1fr; }.output-grid { grid-template-columns: repeat(2, 1fr); }.dual-pair { grid-template-columns: 1fr; }.dual-pair span:nth-child(2) { display: none; } }

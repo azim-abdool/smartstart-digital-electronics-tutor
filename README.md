@@ -1,13 +1,31 @@
-# SmartStart Digital Electronics Tutor v0.3
+# SmartStart Digital Electronics Tutor — integrated reconstruction v0.4
 
-This is an incremental HTML5 reconstruction of the original Flash-based SmartStart Digital Electronics Tutor for the IEEE EDS Trinidad and Tobago Chapter website.
+This folder is a GitHub Pages-ready static website.
 
-## Available activities
+## Included in this release
 
-- **Digital Foundations:** Digital Values, Bits and Bytes
-- **Logic Fundamentals:** Logic Gates and Truth Tables
-- **Combinational Circuits:** Binary Decoders
+- Persistent responsive tutor menu and seven-module dashboard.
+- Module 1: Digital Foundations.
+- Module 2: Logic Fundamentals.
+- Module 3: Boolean Design, partially restored with three activities:
+  - Boolean Algebra and Duality;
+  - Compound Truth Tables;
+  - Minterms, Maxterms, SOP and POS.
+- Module 5 decoder activity retained.
+- Expanded glossary and browser-local progress for six available activities.
 
-## v0.3 addition
+## Module 3 source preservation
 
-Module 2 now includes the reconstructed **Logic Gates and Truth Tables** activity. It preserves the original tutor's introduction to AND, OR and NOT; its common gate list; Boolean expressions; and De Morgan relationships. Responsive SVG symbols and truth-table checking replace the original Flash components.
+The reconstructed activities retain the original tutor's Boolean notation, its compound example
+`F=((X.Z).(X.Y)+(Z+X))`, its dual expression, truth-table workflow, minterm and maxterm progression,
+canonical SOP/POS theorems, and combining theorem `X.Y + X.Y' = X`.
+
+Karnaugh maps, logic hazards and the original "Petric Method" section remain queued for the next Boolean Design increment.
+
+## Deploying over the current GitHub Pages version
+
+Upload the contents of this folder to the root of the existing repository, preserving the folders. Replace the existing files and commit the changes. The WordPress iframe URL does not change.
+
+## Important
+
+Upload the **contents** of this folder, not the outer `smartstart-tutor-v0.4` folder itself. The repository root should contain `index.html`, `assets/`, `modules/`, `activities/`, and the other folders.
