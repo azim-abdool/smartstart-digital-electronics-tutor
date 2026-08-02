@@ -1,25 +1,16 @@
-# SmartStart Digital Electronics Tutor — integrated reconstruction v0.5
+# SmartStart Digital Electronics Tutor — v0.6
 
-This folder is a GitHub Pages-ready static website.
+This release adds the complete reconstructed **Module 4: Data Representation** to the existing GitHub Pages tutor.
 
-## Included in this release
+## Restored activities
 
-- Persistent responsive tutor menu and seven-module dashboard.
-- Digital Foundations, Logic Fundamentals and the complete Boolean Design module.
-- Boolean Design now contains six activities:
-  - Boolean algebra and duality;
-  - compound truth tables;
-  - minterms, maxterms, SOP and POS;
-  - Karnaugh maps with the six recovered prime implicants;
-  - static logic hazards and hazard removal;
-  - Petrick’s method using the recovered coverage equations and cost example.
-- Existing binary decoder activity under Combinational Circuits.
-- Shared glossary, references and browser-local progress for nine activities.
+1. Number Systems and Base Conversion
+2. Fixed Point and Floating Point
+3. IEEE 754 Floating-Point
+4. Binary-Coded Decimal
+5. Gray Code and Rotary Encoding
+6. ASCII Character Codes
 
-## Deploying over the current GitHub Pages version
+The release retains the original tutor's examples, including 674₈ base conversion, the fixed/floating examples, IEEE 754 encoding of 201, packed and unpacked BCD, the reflected Gray-code construction, the three-bit rotary encoder, and the seven-bit ASCII treatment.
 
-Upload the contents of this folder to the root of the existing repository, preserving the folders. Replace the existing files and commit the changes. The WordPress iframe URL does not change.
-
-## Important
-
-Upload the **contents** of this folder, not the outer `smartstart-tutor-v0.5` folder itself.
+Upload the contents of this folder to the root of the existing GitHub repository. The GitHub Pages address and WordPress iframe do not change.
