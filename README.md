@@ -1,16 +1,18 @@
-# SmartStart Digital Electronics Tutor — v0.6
+# SmartStart Digital Electronics Tutor — v0.7
 
-This release adds the complete reconstructed **Module 4: Data Representation** to the existing GitHub Pages tutor.
+This release completes reconstructed **Module 5: Combinational Circuits**.
 
-## Restored activities
+## Activities
 
-1. Number Systems and Base Conversion
-2. Fixed Point and Floating Point
-3. IEEE 754 Floating-Point
-4. Binary-Coded Decimal
-5. Gray Code and Rotary Encoding
-6. ASCII Character Codes
+1. Binary Decoders
+2. BCD-to-Seven-Segment Displays
+3. Decoder Applications
+4. Binary Encoders
+5. Binary Comparators
+6. Multiplexers
+7. Logic Synthesis with Multiplexers
+8. Demultiplexers
 
-The release retains the original tutor's examples, including 674₈ base conversion, the fixed/floating examples, IEEE 754 encoding of 201, packed and unpacked BCD, the reflected Gray-code construction, the three-bit rotary encoder, and the seven-bit ASCII treatment.
+The release preserves the original tutor’s decoder exercises, BCD display material, decoder cascading, minterm implementation, 8-to-3 encoder, comparator controls, 74×151 MUX, MUX synthesis theorem and recovered demultiplexer routing script.
 
-Upload the contents of this folder to the root of the existing GitHub repository. The GitHub Pages address and WordPress iframe do not change.
+Upload the contents of this folder to the root of the existing GitHub repository. The GitHub Pages URL and WordPress iframe do not change.

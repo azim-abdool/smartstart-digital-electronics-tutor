@@ -12,7 +12,7 @@
     { id: "logic-fundamentals", number: "2", label: "Logic Fundamentals", status: "available" },
     { id: "boolean-design", number: "3", label: "Boolean Design", status: "available" },
     { id: "data-representation", number: "4", label: "Data Representation", status: "available" },
-    { id: "combinational-circuits", number: "5", label: "Combinational Circuits", status: "partial" },
+    { id: "combinational-circuits", number: "5", label: "Combinational Circuits", status: "available" },
     { id: "sequential-logic", number: "6", label: "Sequential Logic", status: "planned" },
     { id: "hardware-practice", number: "7", label: "Digital Hardware Practice", status: "planned" }
   ];
@@ -87,7 +87,7 @@
   globalObject.SmartStartProgress = Progress;
 
   function updateProgressViews() {
-    const ids = ["digital-values", "logic-gates", "boolean-algebra", "boolean-truth-tables", "canonical-forms", "karnaugh-maps", "logic-hazards", "petrick-method", "number-systems", "fixed-floating", "ieee754", "bcd", "gray-code", "ascii", "decoder"];
+    const ids = ["digital-values", "logic-gates", "boolean-algebra", "boolean-truth-tables", "canonical-forms", "karnaugh-maps", "logic-hazards", "petrick-method", "number-systems", "fixed-floating", "ieee754", "bcd", "gray-code", "ascii", "decoder", "seven-segment", "decoder-applications", "encoder", "comparator", "multiplexer", "mux-synthesis", "demultiplexer"];
     const count = Progress.count(ids);
     document.querySelectorAll("[data-global-progress]").forEach(progress => {
       progress.max = ids.length;
