@@ -1,18 +1,16 @@
-# SmartStart Digital Electronics Tutor — v0.7
+# SmartStart Digital Electronics Tutor v0.8
 
-This release completes reconstructed **Module 5: Combinational Circuits**.
+This release completes Module 6: Sequential Logic with nine reconstructed activities.
 
-## Activities
+## Available modules
 
-1. Binary Decoders
-2. BCD-to-Seven-Segment Displays
-3. Decoder Applications
-4. Binary Encoders
-5. Binary Comparators
-6. Multiplexers
-7. Logic Synthesis with Multiplexers
-8. Demultiplexers
+1. Digital Foundations
+2. Logic Fundamentals
+3. Boolean Design
+4. Data Representation
+5. Combinational Circuits
+6. Sequential Logic
 
-The release preserves the original tutor’s decoder exercises, BCD display material, decoder cascading, minterm implementation, 8-to-3 encoder, comparator controls, 74×151 MUX, MUX synthesis theorem and recovered demultiplexer routing script.
+Module 7 remains planned.
 
-Upload the contents of this folder to the root of the existing GitHub repository. The GitHub Pages URL and WordPress iframe do not change.
+Upload the contents of this folder to the root of the existing GitHub Pages repository. The public URL and WordPress iframe do not change.
