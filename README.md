@@ -22,10 +22,3 @@ canonical SOP/POS theorems, and combining theorem `X.Y + X.Y' = X`.
 
 Karnaugh maps, logic hazards and the original "Petric Method" section remain queued for the next Boolean Design increment.
 
-## Deploying over the current GitHub Pages version
-
-Upload the contents of this folder to the root of the existing repository, preserving the folders. Replace the existing files and commit the changes. The WordPress iframe URL does not change.
-
-## Important
-
-Upload the **contents** of this folder, not the outer `smartstart-tutor-v0.4` folder itself. The repository root should contain `index.html`, `assets/`, `modules/`, `activities/`, and the other folders.
