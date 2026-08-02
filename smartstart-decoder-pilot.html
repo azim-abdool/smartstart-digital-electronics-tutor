@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Interactive binary decoder activity reconstructed from the SmartStart Flash tutor.">
+  <title>Binary Decoders | SmartStart Tutor</title>
+  <style>
+:root {
+  color-scheme: light;
+  --ieee-blue: #00629b;
+  --blue-dark: #17324d;
+  --blue-soft: #e8f3f9;
+  --ink: #17202a;
+  --muted: #566575;
+  --line: #d5dfe8;
+  --panel: #ffffff;
+  --canvas: #f3f6f9;
+  --success: #18794e;
+  --success-soft: #e8f6ef;
+  --danger: #b42318;
+  --danger-soft: #fff0ee;
+  --warning: #8a5600;
+  --inactive: #a9b7c3;
+  --active: #f6b700;
+}
+
+* { box-sizing: border-box; }
+html { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; scroll-behavior: smooth; }
+body { margin: 0; color: var(--ink); background: var(--canvas); line-height: 1.55; }
+button, select { font: inherit; }
+button, select, summary { touch-action: manipulation; }
+.shell { width: min(1180px, calc(100% - 2rem)); margin-inline: auto; }
+.activity-header { padding: 1.25rem 0 2.2rem; color: white; background: linear-gradient(135deg, var(--blue-dark), var(--ieee-blue)); }
+.back-link { color: white; font-weight: 700; text-underline-offset: .2em; }
+.section-label { margin: 1.4rem 0 .35rem; font-size: .8rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; opacity: .88; }
+h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.7rem); line-height: 1.05; }
+.intro { max-width: 850px; margin: 1rem 0 0; font-size: clamp(1rem, 2vw, 1.15rem); }
+main { padding-block: 2rem 4rem; }
+.panel { margin-bottom: 2rem; padding: clamp(1rem, 3vw, 2rem); border: 1px solid var(--line); border-radius: 1.1rem; background: var(--panel); box-shadow: 0 10px 30px rgb(23 50 77 / .06); }
+.section-heading { display: flex; gap: 2rem; align-items: end; justify-content: space-between; margin-bottom: 1.5rem; }
+.step { margin: 0; color: var(--ieee-blue); font-size: .78rem; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; }
+h2 { margin: .15rem 0 0; color: var(--blue-dark); font-size: clamp(1.4rem, 3vw, 2rem); }
+h3 { color: var(--blue-dark); }
+.instruction { max-width: 500px; margin: 0; color: var(--muted); }
+.explorer-grid { display: grid; grid-template-columns: minmax(190px, .55fr) minmax(0, 1.7fr); gap: 1.25rem; align-items: stretch; }
+.controls-card, .diagram-card, .exercise-card, .progress-card { border: 1px solid var(--line); border-radius: .85rem; background: #fbfdff; }
+.controls-card { padding: 1rem; }
+.controls-card h3, .progress-card h3 { margin-top: 0; }
+.switch-row { display: flex; align-items: center; justify-content: space-between; padding: .8rem 0; border-top: 1px solid var(--line); font-weight: 750; }
+.bit-switch { position: relative; width: 4rem; height: 2.1rem; border: 0; border-radius: 999px; color: var(--blue-dark); background: var(--inactive); cursor: pointer; transition: background .16s ease; }
+.bit-switch span { position: absolute; top: .25rem; left: .25rem; display: grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 50%; background: white; box-shadow: 0 2px 6px rgb(0 0 0 / .18); transition: transform .16s ease; }
+.bit-switch[aria-checked="true"] { background: var(--ieee-blue); }
+.bit-switch[aria-checked="true"] span { transform: translateX(1.9rem); }
+.bit-switch:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visible { outline: .2rem solid #ffca28; outline-offset: .16rem; }
+.binary-readout { margin: 1rem 0 0; padding: .8rem; border-radius: .6rem; background: var(--blue-soft); }
+.diagram-card { display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: .5rem 1rem 1rem; }
+#decoder-diagram { width: 100%; height: auto; min-height: 300px; }
+.decoder-block { fill: #f5fbff; stroke: var(--ieee-blue); stroke-width: 5; }
+.block-title { fill: var(--blue-dark); font-size: 42px; font-weight: 850; }
+.block-subtitle { fill: var(--ieee-blue); font-size: 29px; font-weight: 850; letter-spacing: .08em; }
+.block-note { fill: var(--muted); font-size: 20px; }
+.input-wire line, .output-wire line { stroke: var(--inactive); stroke-width: 8; stroke-linecap: round; transition: stroke .16s ease; }
+.input-wire circle { fill: white; stroke: var(--inactive); stroke-width: 7; transition: fill .16s ease, stroke .16s ease; }
+.input-wire text, .output-wire text { fill: var(--blue-dark); font-size: 25px; font-weight: 800; }
+.input-wire.active line, .input-wire.active circle, .output-wire.active line { stroke: var(--active); }
+.input-wire.active circle { fill: var(--active); }
+.output-lamp { fill: white; stroke: var(--inactive); stroke-width: 7; transition: fill .16s ease, stroke .16s ease; }
+.output-wire.active .output-lamp { fill: var(--active); stroke: #bd8700; }
+.status-message { margin: -.25rem .5rem .25rem; padding: .8rem 1rem; border-radius: .55rem; text-align: center; background: var(--blue-soft); }
+.table-wrap { overflow-x: auto; margin-top: 1.5rem; border: 1px solid var(--line); border-radius: .75rem; }
+table { width: 100%; border-collapse: collapse; background: white; }
+caption { padding: .8rem 1rem; color: var(--blue-dark); background: #edf4f8; font-weight: 850; text-align: left; }
+th, td { min-width: 3.4rem; padding: .68rem .55rem; border: 1px solid var(--line); text-align: center; }
+th { color: white; background: var(--blue-dark); }
+tbody tr.current { background: #fff8dc; outline: .18rem solid var(--active); outline-offset: -.18rem; }
+tbody tr.revealed { background: var(--success-soft); }
+td.masked { color: #83919d; font-weight: 800; letter-spacing: .12em; }
+.compact-table { max-width: 760px; }
+.exercise-layout { display: grid; grid-template-columns: minmax(0, 1fr) 250px; gap: 1.25rem; align-items: start; }
+.exercise-card { padding: 1.1rem; }
+fieldset { margin: 0 0 1rem; padding: 1rem; border: 1px solid var(--line); border-radius: .65rem; }
+legend { padding: 0 .4rem; color: var(--blue-dark); font-weight: 850; }
+.select-grid { display: grid; gap: .75rem; }
+.select-grid.four { grid-template-columns: repeat(4, minmax(75px, 1fr)); }
+.select-grid.eight { grid-template-columns: repeat(8, minmax(65px, 1fr)); }
+.select-grid label { display: flex; flex-direction: column; gap: .3rem; color: var(--blue-dark); font-weight: 750; text-align: center; }
+select { width: 100%; min-height: 2.7rem; padding: .4rem; border: 1px solid #9caab6; border-radius: .45rem; color: var(--ink); background: white; text-align: center; }
+.field-help { margin-top: 0; color: var(--muted); }
+.button-row { display: flex; flex-wrap: wrap; gap: .65rem; align-items: center; }
+.primary-button, .secondary-button, .text-button { min-height: 2.75rem; padding: .65rem .9rem; border-radius: .55rem; font-weight: 800; cursor: pointer; }
+.primary-button { border: 1px solid var(--ieee-blue); color: white; background: var(--ieee-blue); }
+.secondary-button { border: 1px solid var(--ieee-blue); color: var(--ieee-blue); background: white; }
+.text-button { border: 1px solid transparent; color: var(--muted); background: transparent; }
+.primary-button:hover, .primary-button:focus-visible { background: var(--blue-dark); }
+.secondary-button:hover, .secondary-button:focus-visible { color: white; background: var(--ieee-blue); }
+.hint { margin-top: 1rem; padding: .75rem .9rem; border-radius: .55rem; background: #fff8dc; }
+.hint summary { color: var(--warning); font-weight: 850; cursor: pointer; }
+.hint p { margin-bottom: 0; }
+.feedback { margin-top: 1rem; padding: .9rem; border-radius: .55rem; border-left: .35rem solid var(--ieee-blue); }
+.feedback.neutral { background: var(--blue-soft); }
+.feedback.correct { border-color: var(--success); color: #0c5132; background: var(--success-soft); }
+.feedback.incorrect { border-color: var(--danger); color: #7f1d15; background: var(--danger-soft); }
+.progress-card { padding: 1rem; }
+.progress-line { display: grid; grid-template-columns: 1fr auto; gap: .75rem; align-items: center; }
+progress { width: 100%; height: 1rem; accent-color: var(--success); }
+.source-note { padding: 1.25rem 1.5rem; border-left: .35rem solid var(--ieee-blue); background: white; }
+.source-note h2 { margin-top: 0; font-size: 1.25rem; }
+.source-note p { margin-bottom: 0; }
+.activity-footer { padding: 1.5rem 0; color: white; background: var(--blue-dark); }
+@media (max-width: 900px) {
+  .explorer-grid, .exercise-layout { grid-template-columns: 1fr; }
+  .controls-card { display: grid; grid-template-columns: repeat(3, 1fr); gap: .7rem; }
+  .controls-card h3, .binary-readout { grid-column: 1 / -1; }
+  .switch-row { border-top: 0; border: 1px solid var(--line); border-radius: .55rem; padding: .7rem; }
+  .select-grid.eight { grid-template-columns: repeat(4, minmax(65px, 1fr)); }
+}
+@media (max-width: 650px) {
+  .section-heading { align-items: start; flex-direction: column; gap: .5rem; }
+  .controls-card { grid-template-columns: 1fr; }
+  .controls-card h3, .binary-readout { grid-column: auto; }
+  .select-grid.four { grid-template-columns: repeat(2, 1fr); }
+  .select-grid.eight { grid-template-columns: repeat(4, 1fr); }
+  #decoder-diagram { min-height: 230px; }
+}
+@media (max-width: 420px) {
+  .select-grid.eight { grid-template-columns: repeat(2, 1fr); }
+  .button-row > * { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
+  </style>
+  <script>
+(function attachDecoderLogic(globalObject) {
+  "use strict";
+
+  function bit(value) {
+    return Number(value) === 1 ? 1 : 0;
+  }
+
+  function decode2to4(enable, a1, a0) {
+    const outputs = [0, 0, 0, 0];
+    if (bit(enable)) outputs[(bit(a1) << 1) | bit(a0)] = 1;
+    return outputs;
+  }
+
+  function decode3to8(enable, a2, a1, a0) {
+    const outputs = Array(8).fill(0);
+    if (bit(enable)) outputs[(bit(a2) << 2) | (bit(a1) << 1) | bit(a0)] = 1;
+    return outputs;
+  }
+
+  const api = Object.freeze({ bit, decode2to4, decode3to8 });
+
+  if (typeof module !== "undefined" && module.exports) {
+    module.exports = api;
+  }
+  globalObject.SmartStartDecoderLogic = api;
+})(typeof globalThis !== "undefined" ? globalThis : this);
+  </script>
+  <script defer>
+"use strict";
+
+const STORAGE_KEY = "smartstart.decoder3.completedRows.v1";
+
+const { bit, decode2to4, decode3to8 } = globalThis.SmartStartDecoderLogic;
+function initialiseExplorer() {
+  const state = { enable: 0, a1: 0, a0: 0 };
+  const switches = [...document.querySelectorAll(".bit-switch")];
+  const tableRows = [...document.querySelectorAll("#decoder-2-table tbody tr")];
+
+  function update() {
+    const inputCode = `${state.a1}${state.a0}`;
+    const decimal = (state.a1 << 1) | state.a0;
+    const outputs = decode2to4(state.enable, state.a1, state.a0);
+
+    document.getElementById("input-code").textContent = inputCode;
+    document.getElementById("decimal-value").textContent = String(decimal);
+
+    for (const wire of document.querySelectorAll(".input-wire")) {
+      wire.classList.toggle("active", state[wire.dataset.wire] === 1);
+    }
+    for (const wire of document.querySelectorAll(".output-wire")) {
+      const index = Number(wire.dataset.output);
+      wire.classList.toggle("active", outputs[index] === 1);
+    }
+
+    const key = state.enable ? `1${state.a1}${state.a0}` : "0xx";
+    tableRows.forEach(row => row.classList.toggle("current", row.dataset.key === key));
+
+    const status = document.getElementById("explorer-status");
+    status.textContent = state.enable
+      ? `Input ${inputCode} is decimal ${decimal}, so output Y${decimal} is 1.`
+      : "The decoder is disabled, so all outputs are 0.";
+  }
+
+  for (const control of switches) {
+    control.addEventListener("click", () => {
+      const name = control.dataset.control;
+      state[name] = state[name] ? 0 : 1;
+      control.setAttribute("aria-checked", String(state[name] === 1));
+      control.querySelector("span").textContent = String(state[name]);
+      update();
+    });
+  }
+
+  update();
+}
+
+function safeLoadRows() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    return new Set(parsed.filter(value => Number.isInteger(value) && value >= 0 && value <= 7));
+  } catch {
+    return new Set();
+  }
+}
+
+function safeSaveRows(rows) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify([...rows].sort((a, b) => a - b)));
+  } catch {
+    // Storage can be unavailable in privacy-restricted third-party iframes.
+  }
+}
+
+function initialiseExercise() {
+  const form = document.getElementById("decoder-exercise");
+  const enableSelect = document.getElementById("ex-enable");
+  const a2Select = document.getElementById("ex-a2");
+  const a1Select = document.getElementById("ex-a1");
+  const a0Select = document.getElementById("ex-a0");
+  const outputSelects = [...document.querySelectorAll("#output-selects select")];
+  const feedback = document.getElementById("exercise-feedback");
+  const body = document.getElementById("decoder-3-body");
+  const completedRows = safeLoadRows();
+
+  function rowOutputDisplay(input) {
+    return decode3to8(1, (input >> 2) & 1, (input >> 1) & 1, input & 1)
+      .slice()
+      .reverse(); // Display order is Y7 through Y0, matching the original tutor.
+  }
+
+  function buildTable() {
+    body.replaceChildren();
+
+    const disabledRow = document.createElement("tr");
+    disabledRow.innerHTML = "<td>0</td><td>×</td><td>×</td><td>×</td>" + Array(8).fill("<td>0</td>").join("");
+    disabledRow.className = "revealed";
+    body.append(disabledRow);
+
+    for (let input = 0; input < 8; input += 1) {
+      const row = document.createElement("tr");
+      row.dataset.input = String(input);
+      const bits = input.toString(2).padStart(3, "0").split("");
+      const prefix = ["1", ...bits].map(value => `<td>${value}</td>`).join("");
+      const isComplete = completedRows.has(input);
+      const outputCells = isComplete
+        ? rowOutputDisplay(input).map(value => `<td>${value}</td>`).join("")
+        : Array(8).fill('<td class="masked" aria-label="not yet revealed">—</td>').join("");
+      row.innerHTML = prefix + outputCells;
+      row.classList.toggle("revealed", isComplete);
+      body.append(row);
+    }
+  }
+
+  function updateProgress() {
+    const count = completedRows.size;
+    document.getElementById("row-progress").value = count;
+    document.getElementById("progress-text").textContent = `${count} of 8`;
+  }
+
+  function currentInputs() {
+    return {
+      enable: bit(enableSelect.value),
+      a2: bit(a2Select.value),
+      a1: bit(a1Select.value),
+      a0: bit(a0Select.value)
+    };
+  }
+
+  function selectedOutputs() {
+    const valuesByNumber = Array(8).fill(0);
+    for (const select of outputSelects) {
+      valuesByNumber[Number(select.dataset.output)] = bit(select.value);
+    }
+    return valuesByNumber;
+  }
+
+  function setFeedback(message, kind) {
+    feedback.textContent = message;
+    feedback.className = `feedback ${kind}`;
+  }
+
+  function highlightCurrentRow() {
+    const { enable, a2, a1, a0 } = currentInputs();
+    for (const row of body.querySelectorAll("tr")) row.classList.remove("current");
+    if (!enable) {
+      body.querySelector("tr")?.classList.add("current");
+      return;
+    }
+    const input = (a2 << 2) | (a1 << 1) | a0;
+    body.querySelector(`tr[data-input="${input}"]`)?.classList.add("current");
+  }
+
+  function resetOutputSelections() {
+    outputSelects.forEach(select => { select.value = "0"; });
+  }
+
+  function setInput(input) {
+    enableSelect.value = "1";
+    a2Select.value = String((input >> 2) & 1);
+    a1Select.value = String((input >> 1) & 1);
+    a0Select.value = String(input & 1);
+    resetOutputSelections();
+    highlightCurrentRow();
+  }
+
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+    const { enable, a2, a1, a0 } = currentInputs();
+    const selected = selectedOutputs();
+    const expected = decode3to8(enable, a2, a1, a0);
+    const correct = expected.every((value, index) => value === selected[index]);
+    const input = (a2 << 2) | (a1 << 1) | a0;
+
+    if (correct) {
+      if (!enable) {
+        setFeedback("Correct: when enable is 0, every output is 0. The disabled row was already shown in the original exercise.", "correct");
+      } else {
+        const wasNew = !completedRows.has(input);
+        completedRows.add(input);
+        safeSaveRows(completedRows);
+        buildTable();
+        highlightCurrentRow();
+        updateProgress();
+        if (completedRows.size === 8) {
+          setFeedback("Success: you have recovered all eight enabled rows of the 3-to-8 decoder truth table.", "correct");
+        } else {
+          setFeedback(`${wasNew ? "Correct" : "Correct again"}: input ${input.toString(2).padStart(3, "0")} activates Y${input}.`, "correct");
+        }
+      }
+      return;
+    }
+
+    const activeSelections = selected.reduce((sum, value) => sum + value, 0);
+    if (!enable && activeSelections !== 0) {
+      setFeedback("Not yet: a disabled decoder must have all outputs set to 0.", "incorrect");
+    } else if (enable && activeSelections !== 1) {
+      setFeedback("Not yet: when this active-high decoder is enabled, exactly one output should be 1.", "incorrect");
+    } else {
+      setFeedback(`Not yet: convert input ${a2}${a1}${a0} to decimal, then activate the output with that number.`, "incorrect");
+    }
+  });
+
+  for (const select of [enableSelect, a2Select, a1Select, a0Select]) {
+    select.addEventListener("change", highlightCurrentRow);
+  }
+
+  document.getElementById("next-row").addEventListener("click", () => {
+    const next = [...Array(8).keys()].find(input => !completedRows.has(input));
+    if (next === undefined) {
+      setFeedback("All enabled rows are complete.", "correct");
+      return;
+    }
+    setInput(next);
+    setFeedback(`Input ${next.toString(2).padStart(3, "0")} selected. Predict which output should be 1.`, "neutral");
+  });
+
+  document.getElementById("reset-exercise").addEventListener("click", () => {
+    completedRows.clear();
+    safeSaveRows(completedRows);
+    enableSelect.value = "0";
+    a2Select.value = "0";
+    a1Select.value = "0";
+    a0Select.value = "0";
+    resetOutputSelections();
+    buildTable();
+    updateProgress();
+    highlightCurrentRow();
+    setFeedback("Progress cleared. Start with any enabled input combination.", "neutral");
+  });
+
+  buildTable();
+  updateProgress();
+  highlightCurrentRow();
+}
+
+function initialiseActivity() {
+  initialiseExplorer();
+  initialiseExercise();
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initialiseActivity, { once: true });
+} else {
+  initialiseActivity();
+}
+  </script>
+</head>
+<body>
+  <header class="activity-header">
+    <div class="shell">
+      <span class="back-link">SmartStart recovery pilot</span>
+      <p class="section-label">Combinational circuits · Reconstructed activity</p>
+      <h1>Binary Decoders</h1>
+      <p class="intro">A decoder is a multiple-input, multiple-output logic circuit that converts a coded input into a unique output. Explore a 2-to-4 decoder, then complete the original 3-to-8 decoder exercise.</p>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="panel" aria-labelledby="explore-heading">
+      <div class="section-heading">
+        <div>
+          <p class="step">Part 1</p>
+          <h2 id="explore-heading">Explore a 2-to-4 decoder</h2>
+        </div>
+        <p class="instruction">Set the enable and input bits, then observe the active-high outputs.</p>
+      </div>
+
+      <div class="explorer-grid">
+        <div class="controls-card" aria-label="Decoder inputs">
+          <h3>Inputs</h3>
+          <div class="switch-row">
+            <span>Enable</span>
+            <button class="bit-switch" type="button" role="switch" aria-checked="false" data-control="enable"><span>0</span></button>
+          </div>
+          <div class="switch-row">
+            <span>A<sub>1</sub></span>
+            <button class="bit-switch" type="button" role="switch" aria-checked="false" data-control="a1"><span>0</span></button>
+          </div>
+          <div class="switch-row">
+            <span>A<sub>0</sub></span>
+            <button class="bit-switch" type="button" role="switch" aria-checked="false" data-control="a0"><span>0</span></button>
+          </div>
+          <p class="binary-readout">Input code: <strong id="input-code">00</strong><br>Decimal value: <strong id="decimal-value">0</strong></p>
+        </div>
+
+        <div class="diagram-card">
+          <svg id="decoder-diagram" viewBox="0 0 780 420" role="img" aria-labelledby="diagram-title diagram-desc">
+            <title id="diagram-title">Interactive 2-to-4 decoder</title>
+            <desc id="diagram-desc">Enable and two input signals enter a decoder block. Four output indicators show the active output.</desc>
+            <defs>
+              <filter id="soft-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="8" stdDeviation="8" flood-opacity=".14"/>
+              </filter>
+            </defs>
+            <rect class="decoder-block" x="275" y="75" width="245" height="270" rx="20" filter="url(#soft-shadow)"/>
+            <text class="block-title" x="397.5" y="185" text-anchor="middle">2-to-4</text>
+            <text class="block-subtitle" x="397.5" y="225" text-anchor="middle">DECODER</text>
+            <text class="block-note" x="397.5" y="270" text-anchor="middle">active-high</text>
+
+            <g class="input-wire" data-wire="enable">
+              <line x1="70" y1="120" x2="275" y2="120"/>
+              <circle cx="70" cy="120" r="15"/>
+              <text x="45" y="126" text-anchor="end">EN</text>
+            </g>
+            <g class="input-wire" data-wire="a1">
+              <line x1="70" y1="205" x2="275" y2="205"/>
+              <circle cx="70" cy="205" r="15"/>
+              <text x="45" y="211" text-anchor="end">A₁</text>
+            </g>
+            <g class="input-wire" data-wire="a0">
+              <line x1="70" y1="290" x2="275" y2="290"/>
+              <circle cx="70" cy="290" r="15"/>
+              <text x="45" y="296" text-anchor="end">A₀</text>
+            </g>
+
+            <g class="output-wire" data-output="3">
+              <line x1="520" y1="120" x2="705" y2="120"/>
+              <circle class="output-lamp" cx="705" cy="120" r="20"/>
+              <text x="740" y="127">Y₃</text>
+            </g>
+            <g class="output-wire" data-output="2">
+              <line x1="520" y1="185" x2="705" y2="185"/>
+              <circle class="output-lamp" cx="705" cy="185" r="20"/>
+              <text x="740" y="192">Y₂</text>
+            </g>
+            <g class="output-wire" data-output="1">
+              <line x1="520" y1="250" x2="705" y2="250"/>
+              <circle class="output-lamp" cx="705" cy="250" r="20"/>
+              <text x="740" y="257">Y₁</text>
+            </g>
+            <g class="output-wire" data-output="0">
+              <line x1="520" y1="315" x2="705" y2="315"/>
+              <circle class="output-lamp" cx="705" cy="315" r="20"/>
+              <text x="740" y="322">Y₀</text>
+            </g>
+          </svg>
+          <p id="explorer-status" class="status-message" aria-live="polite">The decoder is disabled, so all outputs are 0.</p>
+        </div>
+      </div>
+
+      <div class="table-wrap compact-table">
+        <table id="decoder-2-table">
+          <caption>2-to-4 decoder truth table</caption>
+          <thead><tr><th>Enable</th><th>A<sub>1</sub></th><th>A<sub>0</sub></th><th>Y<sub>3</sub></th><th>Y<sub>2</sub></th><th>Y<sub>1</sub></th><th>Y<sub>0</sub></th></tr></thead>
+          <tbody>
+            <tr data-key="0xx"><td>0</td><td>×</td><td>×</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+            <tr data-key="100"><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+            <tr data-key="101"><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+            <tr data-key="110"><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td></tr>
+            <tr data-key="111"><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="exercise-heading">
+      <div class="section-heading">
+        <div>
+          <p class="step">Part 2</p>
+          <h2 id="exercise-heading">The binary 3-to-8 decoder: Exercise 1</h2>
+        </div>
+        <p class="instruction">Change the values below to set the enable, inputs and output combination for a row of the truth table.</p>
+      </div>
+
+      <div class="exercise-layout">
+        <form id="decoder-exercise" class="exercise-card">
+          <fieldset>
+            <legend>Choose the row</legend>
+            <div class="select-grid four">
+              <label>Enable<select id="ex-enable"><option value="0">0</option><option value="1">1</option></select></label>
+              <label>A<sub>2</sub><select id="ex-a2"><option value="0">0</option><option value="1">1</option></select></label>
+              <label>A<sub>1</sub><select id="ex-a1"><option value="0">0</option><option value="1">1</option></select></label>
+              <label>A<sub>0</sub><select id="ex-a0"><option value="0">0</option><option value="1">1</option></select></label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Predict the outputs</legend>
+            <p class="field-help">Outputs are ordered Y<sub>7</sub> through Y<sub>0</sub>, matching the original tutor.</p>
+            <div class="select-grid eight" id="output-selects">
+              <label>Y<sub>7</sub><select data-output="7"><option value="0">0</option><option value="1">1</option></select></label>
+              <label>Y<sub>6</sub><select data-output="6"><option value="0">0</option><option value="1">1</option></select></label>
+              <label>Y<sub>5</sub><select data-output="5"><option value="0">0</option><option value="1">1</option></select></label>
+              <label>Y<sub>4</sub><select data-output="4"><option value="0">0</option><option value="1">1</option></select></label>
+              <label>Y<sub>3</sub><select data-output="3"><option value="0">0</option><option value="1">1</option></select></label>
+              <label>Y<sub>2</sub><select data-output="2"><option value="0">0</option><option value="1">1</option></select></label>
+              <label>Y<sub>1</sub><select data-output="1"><option value="0">0</option><option value="1">1</option></select></label>
+              <label>Y<sub>0</sub><select data-output="0"><option value="0">0</option><option value="1">1</option></select></label>
+            </div>
+          </fieldset>
+
+          <div class="button-row">
+            <button class="primary-button" type="submit">Check row</button>
+            <button class="secondary-button" type="button" id="next-row">Next incomplete row</button>
+            <button class="text-button" type="button" id="reset-exercise">Reset</button>
+          </div>
+
+          <details class="hint">
+            <summary>Hint</summary>
+            <p>When an active-high decoder is enabled, exactly one output is 1. The binary input identifies which numbered output becomes active.</p>
+          </details>
+
+          <div id="exercise-feedback" class="feedback neutral" aria-live="polite">Start with any enabled input combination.</div>
+        </form>
+
+        <div class="progress-card">
+          <h3>Recovered rows</h3>
+          <div class="progress-line"><progress id="row-progress" max="8" value="0"></progress><span id="progress-text">0 of 8</span></div>
+          <p>Each correct enabled combination reveals one row.</p>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table id="decoder-3-table">
+          <caption>3-to-8 decoder truth table</caption>
+          <thead>
+            <tr><th>Enable</th><th>A<sub>2</sub></th><th>A<sub>1</sub></th><th>A<sub>0</sub></th><th>Y<sub>7</sub></th><th>Y<sub>6</sub></th><th>Y<sub>5</sub></th><th>Y<sub>4</sub></th><th>Y<sub>3</sub></th><th>Y<sub>2</sub></th><th>Y<sub>1</sub></th><th>Y<sub>0</sub></th></tr>
+          </thead>
+          <tbody id="decoder-3-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="source-note" aria-labelledby="source-heading">
+      <h2 id="source-heading">Recovery note</h2>
+      <p>This pilot preserves the interaction and answer logic recovered from the original Flash source. The circuit diagram and responsive interface were redrawn in SVG and modern HTML because the original vector timeline is stored in a proprietary binary format.</p>
+    </section>
+  </main>
+
+  <footer class="activity-footer"><div class="shell">SmartStart Digital Electronics Tutor · HTML5 recovery pilot</div></footer>
+</body>
+</html>
