@@ -1,16 +1,19 @@
-# SmartStart Digital Electronics Tutor — integrated reconstruction v0.2
+# SmartStart Digital Electronics Tutor v0.3
 
-This folder is a GitHub Pages-ready static website.
+This is an incremental HTML5 reconstruction of the original Flash-based SmartStart Digital Electronics Tutor for the IEEE EDS Trinidad and Tobago Chapter website.
 
-## Included in this release
+## Available activities
 
-- Persistent responsive tutor menu and seven-module dashboard.
-- Module overview pages following the agreed pedagogical order.
-- Digital Foundations activity:
-  - analogue-to-digital threshold explorer recovered from the original tutor;
-  - original two-state technology examples;
-  - interactive bit/byte explorer;
-  - short completion check.
-- Existing binary decoder activity integrated into Module 5.
-- Shared glossary, references and recovery-information pages.
-- Browser-local progress for the two currently available activities.
+- **Digital Foundations:** Digital Values, Bits and Bytes
+- **Logic Fundamentals:** Logic Gates and Truth Tables
+- **Combinational Circuits:** Binary Decoders
+
+## v0.3 addition
+
+Module 2 now includes the reconstructed **Logic Gates and Truth Tables** activity. It preserves the original tutor's introduction to AND, OR and NOT; its common gate list; Boolean expressions; and De Morgan relationships. Responsive SVG symbols and truth-table checking replace the original Flash components.
+
+## Deployment
+
+Upload everything inside this folder to the root of the existing GitHub Pages repository. The public URL and WordPress iframe URL do not change.
+
+See `docs/update-github.md` for step-by-step instructions.

@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Interactive logic gates and truth tables in the SmartStart Digital Electronics Tutor.">
+  <title>Logic Gates and Truth Tables | SmartStart Digital Electronics Tutor</title>
+  <link rel="stylesheet" href="../../../assets/site.css">
+  <link rel="stylesheet" href="activity.css">
+  <script src="../../../assets/site.js" defer></script>
+  <script src="activity.js" defer></script>
+</head>
+<body data-root="../../../" data-section="logic-fundamentals" data-title="Logic Gates and Truth Tables">
+  <div class="app-shell">
+    <aside class="site-sidebar" id="site-sidebar"></aside>
+    <div class="sidebar-scrim" id="sidebar-scrim"></div>
+    <div class="site-stage">
+      <header class="site-toolbar">
+        <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open tutor menu" aria-expanded="false">☰</button>
+        <a class="toolbar-title" href="../../../"><strong id="toolbar-title">SmartStart Digital Electronics Tutor</strong><span>IEEE EDS Trinidad and Tobago Chapter Edition</span></a>
+        <span class="toolbar-status">Incremental reconstruction</span>
+      </header>
+
+      <main class="page-content">
+        <section class="activity-hero">
+          <div class="content-wrap">
+            <p class="eyebrow">Module 2 · Reconstructed activity</p>
+            <h1>Logic Gates and Truth Tables</h1>
+            <p>Explore the three basic logic operations identified in the original tutor, then compare the wider family of commonly used gate symbols and complete their truth tables.</p>
+          </div>
+        </section>
+
+        <div class="content-wrap">
+          <p class="breadcrumbs"><a href="../../../">Home</a> / <a href="../../../modules/logic-fundamentals/">Logic Fundamentals</a> / Logic Gates and Truth Tables</p>
+
+          <section class="activity-panel" aria-labelledby="basic-heading">
+            <div class="section-heading">
+              <div><p class="step">Part 1</p><h2 id="basic-heading">The three basic logic gates</h2></div>
+              <p class="instruction">The original tutor describes AND, OR and NOT as the three basic gates corresponding to the Boolean operators AND, OR and complement.</p>
+            </div>
+
+            <div class="gate-explorer-grid">
+              <div class="gate-controls">
+                <label for="basic-gate"><strong>Select a gate</strong></label>
+                <select id="basic-gate">
+                  <option value="AND">AND</option>
+                  <option value="OR">OR</option>
+                  <option value="NOT">NOT</option>
+                </select>
+
+                <div class="switch-row">
+                  <span>Input X</span>
+                  <button class="bit-switch" id="input-x" type="button" role="switch" aria-checked="false"><span>0</span></button>
+                </div>
+                <div class="switch-row" id="input-y-row">
+                  <span>Input Y</span>
+                  <button class="bit-switch" id="input-y" type="button" role="switch" aria-checked="false"><span>0</span></button>
+                </div>
+
+                <div class="expression-card">
+                  <span>Boolean expression</span>
+                  <strong id="basic-expression">Z = X · Y</strong>
+                </div>
+              </div>
+
+              <div class="gate-stage">
+                <svg id="gate-diagram" viewBox="0 0 760 390" role="img" aria-labelledby="gate-title gate-desc">
+                  <title id="gate-title">Interactive logic gate</title>
+                  <desc id="gate-desc">Input signals enter a selected logic gate and produce output Z.</desc>
+                  <g class="signal signal-x" data-signal="x">
+                    <line x1="55" y1="125" x2="245" y2="125"></line>
+                    <circle cx="55" cy="125" r="15"></circle>
+                    <text x="28" y="133" text-anchor="end">X</text>
+                  </g>
+                  <g class="signal signal-y" data-signal="y">
+                    <line x1="55" y1="255" x2="245" y2="255"></line>
+                    <circle cx="55" cy="255" r="15"></circle>
+                    <text x="28" y="263" text-anchor="end">Y</text>
+                  </g>
+
+                  <g id="shape-and" class="gate-shape">
+                    <path d="M245 80 H355 C455 80 505 125 505 190 C505 255 455 300 355 300 H245 Z"></path>
+                  </g>
+                  <g id="shape-or" class="gate-shape" hidden>
+                    <path d="M240 80 Q315 190 240 300 Q390 300 510 190 Q390 80 240 80 Z"></path>
+                    <path class="or-back" d="M240 80 Q315 190 240 300"></path>
+                  </g>
+                  <g id="shape-not" class="gate-shape" hidden>
+                    <path d="M260 85 L500 190 L260 295 Z"></path>
+                    <circle class="gate-bubble" cx="526" cy="190" r="20"></circle>
+                  </g>
+
+                  <g class="output-signal" data-signal="z">
+                    <line x1="505" y1="190" x2="690" y2="190"></line>
+                    <circle class="output-lamp" cx="690" cy="190" r="23"></circle>
+                    <text x="730" y="198">Z</text>
+                  </g>
+                  <text id="gate-name" class="gate-label" x="375" y="350" text-anchor="middle">AND gate</text>
+                </svg>
+                <p class="result-box" id="basic-result" aria-live="polite">0 AND 0 gives 0.</p>
+              </div>
+            </div>
+
+            <div class="table-wrap">
+              <table id="basic-table">
+                <caption id="basic-caption">AND gate truth table</caption>
+                <thead><tr><th>X</th><th id="basic-y-head">Y</th><th>Z</th></tr></thead>
+                <tbody id="basic-table-body"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="activity-panel" aria-labelledby="family-heading">
+            <div class="section-heading">
+              <div><p class="step">Part 2</p><h2 id="family-heading">The common gate family</h2></div>
+              <p class="instruction">The original tutor lists AND, OR, NAND, NOR, buffer and inverter among the common symbols students should recognise.</p>
+            </div>
+
+            <div class="family-grid">
+              <div>
+                <label for="family-gate"><strong>Select a gate family member</strong></label>
+                <select id="family-gate">
+                  <option value="AND">AND</option>
+                  <option value="OR">OR</option>
+                  <option value="NAND">NAND</option>
+                  <option value="NOR">NOR</option>
+                  <option value="BUFFER">BUFFER</option>
+                  <option value="INVERTER">INVERTER</option>
+                </select>
+                <div class="family-summary">
+                  <h3 id="family-title">AND gate</h3>
+                  <p id="family-description"></p>
+                  <p class="formula" id="family-formula"></p>
+                </div>
+              </div>
+              <div class="symbol-card" aria-live="polite">
+                <svg id="family-symbol" viewBox="0 0 520 300" role="img" aria-label="Selected logic gate symbol">
+                  <g class="family-input family-input-a"><line x1="35" y1="95" x2="165" y2="95"></line><text x="20" y="102" text-anchor="end">X</text></g>
+                  <g class="family-input family-input-b"><line x1="35" y1="205" x2="165" y2="205"></line><text x="20" y="212" text-anchor="end">Y</text></g>
+                  <g id="family-shape"></g>
+                  <line class="family-output" x1="350" y1="150" x2="475" y2="150"></line>
+                  <text x="500" y="158">Z</text>
+                </svg>
+              </div>
+            </div>
+
+            <aside class="demorgan-note">
+              <h3>De Morgan relationships retained from the original tutor</h3>
+              <p><strong>X′ + Y′ = (X · Y)′</strong> and <strong>X′ · Y′ = (X + Y)′</strong>.</p>
+              <p>These identities explain why NAND and NOR functions can be represented using alternative gate symbols with inverted inputs or outputs.</p>
+            </aside>
+          </section>
+
+          <section class="activity-panel" aria-labelledby="practice-heading">
+            <div class="section-heading">
+              <div><p class="step">Part 3</p><h2 id="practice-heading">Complete the three main truth tables</h2></div>
+              <p class="instruction">Choose the correct output for every input combination. Completing all three tables marks this activity as finished.</p>
+            </div>
+
+            <form id="truth-practice">
+              <div class="practice-grid">
+                <fieldset class="practice-card">
+                  <legend>AND: Z = X · Y</legend>
+                  <table><thead><tr><th>X</th><th>Y</th><th>Z</th></tr></thead><tbody>
+                    <tr><td>0</td><td>0</td><td><select data-answer="0" aria-label="AND output for 0 and 0"><option value="">?</option><option>0</option><option>1</option></select></td></tr>
+                    <tr><td>0</td><td>1</td><td><select data-answer="0" aria-label="AND output for 0 and 1"><option value="">?</option><option>0</option><option>1</option></select></td></tr>
+                    <tr><td>1</td><td>0</td><td><select data-answer="0" aria-label="AND output for 1 and 0"><option value="">?</option><option>0</option><option>1</option></select></td></tr>
+                    <tr><td>1</td><td>1</td><td><select data-answer="1" aria-label="AND output for 1 and 1"><option value="">?</option><option>0</option><option>1</option></select></td></tr>
+                  </tbody></table>
+                </fieldset>
+
+                <fieldset class="practice-card">
+                  <legend>OR: Z = X + Y</legend>
+                  <table><thead><tr><th>X</th><th>Y</th><th>Z</th></tr></thead><tbody>
+                    <tr><td>0</td><td>0</td><td><select data-answer="0" aria-label="OR output for 0 and 0"><option value="">?</option><option>0</option><option>1</option></select></td></tr>
+                    <tr><td>0</td><td>1</td><td><select data-answer="1" aria-label="OR output for 0 and 1"><option value="">?</option><option>0</option><option>1</option></select></td></tr>
+                    <tr><td>1</td><td>0</td><td><select data-answer="1" aria-label="OR output for 1 and 0"><option value="">?</option><option>0</option><option>1</option></select></td></tr>
+                    <tr><td>1</td><td>1</td><td><select data-answer="1" aria-label="OR output for 1 and 1"><option value="">?</option><option>0</option><option>1</option></select></td></tr>
+                  </tbody></table>
+                </fieldset>
+
+                <fieldset class="practice-card">
+                  <legend>NOT: Z = X′</legend>
+                  <table><thead><tr><th>X</th><th>Z</th></tr></thead><tbody>
+                    <tr><td>0</td><td><select data-answer="1" aria-label="NOT output for 0"><option value="">?</option><option>0</option><option>1</option></select></td></tr>
+                    <tr><td>1</td><td><select data-answer="0" aria-label="NOT output for 1"><option value="">?</option><option>0</option><option>1</option></select></td></tr>
+                  </tbody></table>
+                </fieldset>
+              </div>
+              <div class="action-row"><button class="action-button primary" type="submit">Check truth tables</button><button class="action-button secondary" id="clear-practice" type="button">Clear answers</button></div>
+              <div class="feedback" id="practice-feedback" aria-live="polite">Complete all ten outputs, then check your work.</div>
+            </form>
+          </section>
+
+          <section class="notice"><strong>Recovery note.</strong> The three-gate introduction, common gate list, Boolean expressions and De Morgan relationships are reconstructed from the original Flash tutor. The responsive SVG symbols and truth-table interaction were recreated for the web.</section>
+
+          <nav class="page-nav" aria-label="Activity navigation">
+            <a href="../../../modules/logic-fundamentals/"><small>Module overview</small><strong>← Logic Fundamentals</strong></a>
+            <a href="../../../modules/boolean-design/"><small>Next module</small><strong>Boolean Design →</strong></a>
+          </nav>
+        </div>
+      </main>
+
+      <footer class="site-footer">SmartStart Digital Electronics Tutor · Reconstructed for the web by the IEEE EDS Trinidad and Tobago Chapter</footer>
+    </div>
+  </div>
+</body>
+</html>
