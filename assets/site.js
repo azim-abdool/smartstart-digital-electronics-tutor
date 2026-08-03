@@ -14,7 +14,7 @@
     { id: "data-representation", number: "4", label: "Data Representation", status: "available" },
     { id: "combinational-circuits", number: "5", label: "Combinational Circuits", status: "available" },
     { id: "sequential-logic", number: "6", label: "Sequential Logic", status: "available" },
-    { id: "hardware-practice", number: "7", label: "Digital Hardware Practice", status: "planned" }
+    { id: "hardware-practice", number: "7", label: "Digital Hardware Practice", status: "available" }
   ];
 
   const sidebar = document.getElementById("site-sidebar");
@@ -87,7 +87,7 @@
   globalObject.SmartStartProgress = Progress;
 
   function updateProgressViews() {
-    const ids = ["digital-values", "logic-gates", "boolean-algebra", "boolean-truth-tables", "canonical-forms", "karnaugh-maps", "logic-hazards", "petrick-method", "number-systems", "fixed-floating", "ieee754", "bcd", "gray-code", "ascii", "decoder", "seven-segment", "decoder-applications", "encoder", "comparator", "multiplexer", "mux-synthesis", "demultiplexer", "seq-bistable", "sr-latch", "d-latch-clock", "flip-flops", "registers-counter", "moore-mealy", "state-diagrams", "derive-state-diagram", "string-recognizer"];
+    const ids = ["digital-values", "logic-gates", "boolean-algebra", "boolean-truth-tables", "canonical-forms", "karnaugh-maps", "logic-hazards", "petrick-method", "number-systems", "fixed-floating", "ieee754", "bcd", "gray-code", "ascii", "decoder", "seven-segment", "decoder-applications", "encoder", "comparator", "multiplexer", "mux-synthesis", "demultiplexer", "seq-bistable", "sr-latch", "d-latch-clock", "flip-flops", "registers-counter", "moore-mealy", "state-diagrams", "derive-state-diagram", "string-recognizer", "hw-integrated-circuits", "hw-electrical-limits", "hw-mosfet-cmos", "hw-diodes", "hw-logic-families", "hw-floating-inputs", "hw-buses", "hw-decoupling-breadboard", "hw-schmitt-protection-leds"];
     const count = Progress.count(ids);
     document.querySelectorAll("[data-global-progress]").forEach(progress => {
       progress.max = ids.length;
