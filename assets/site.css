@@ -18,6 +18,12 @@
 }
 
 * { box-sizing: border-box; }
+
+/* Browsers apply the UA [hidden] { display: none } rule to HTML elements only,
+   so setting .hidden on an SVG group or path has no visible effect. Several
+   activities toggle SVG parts that way, so make the attribute work there too. */
+svg[hidden], svg [hidden] { display: none; }
+
 html { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; scroll-behavior: smooth; }
 body { margin: 0; color: var(--ink); background: var(--surface-soft); line-height: 1.55; }
 a { color: var(--ieee-blue); }
@@ -106,6 +112,15 @@ h1, h2, h3 { color: var(--ieee-blue-dark); line-height: 1.18; }
 .progress-summary { display: flex; flex-wrap: wrap; gap: .8rem; align-items: center; padding: 1rem 1.1rem; border: 1px solid var(--line); border-radius: .8rem; background: white; }
 .progress-summary progress { flex: 1 1 250px; height: 1rem; accent-color: var(--success); }
 
+.credit-line { margin-bottom: 0; padding-top: .9rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .92rem; }
+.action-row { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1rem; }
+.site-button { display: inline-flex; align-items: center; justify-content: center; min-height: 2.8rem; padding: .65rem 1.1rem; border: 1px solid var(--ieee-blue); border-radius: .55rem; color: white; background: var(--ieee-blue); font-weight: 800; cursor: pointer; }
+.site-button:hover { background: var(--ieee-blue-dark); border-color: var(--ieee-blue-dark); }
+.site-button.quiet { color: var(--ieee-blue); background: white; }
+.site-button.quiet:hover { color: white; background: var(--ieee-blue); }
+.site-footer a { color: #bfe6f4; }
+.site-footer a:hover { color: white; }
+
 .page-nav { display: flex; justify-content: space-between; gap: .8rem; margin-top: 2.2rem; }
 .page-nav a { display: flex; flex-direction: column; min-width: 0; padding: .8rem 1rem; border: 1px solid var(--line); border-radius: .7rem; color: var(--ieee-blue-dark); background: white; text-decoration: none; }
 .page-nav a:last-child { margin-left: auto; text-align: right; }
@@ -135,3 +150,34 @@ h1, h2, h3 { color: var(--ieee-blue-dark); line-height: 1.18; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }
+
+/* Activity list nested under the open module in the sidebar */
+.nav-sublist { display: grid; gap: .1rem; margin: .15rem 0 .5rem; padding-left: .55rem; border-left: 2px solid rgb(255 255 255 / .16); }
+.nav-sublink { display: grid; grid-template-columns: 2.3rem 1fr; gap: .35rem; align-items: start; padding: .42rem .6rem; border-radius: .45rem; color: #cfe6f1; text-decoration: none; font-size: .83rem; line-height: 1.3; }
+.nav-sublink:hover { color: white; background: rgb(255 255 255 / .09); }
+.nav-sublink.current { color: white; background: rgb(255 255 255 / .14); font-weight: 750; box-shadow: inset 2px 0 0 #73d1ef; }
+.nav-subnumber { color: #8bd4ec; font-weight: 800; }
+.nav-sublink.current .nav-subnumber { color: #b9e6f7; }
+
+/* Glossary */
+.glossary-index { position: sticky; top: 3.65rem; z-index: 5; display: flex; flex-wrap: wrap; gap: .3rem; margin-bottom: 1.5rem; padding: .7rem .8rem; border: 1px solid var(--line); border-radius: .7rem; background: white; }
+.glossary-index a { display: grid; place-items: center; min-width: 2rem; min-height: 2rem; border-radius: .4rem; font-weight: 850; text-decoration: none; }
+.glossary-index a:hover { color: white; background: var(--ieee-blue); }
+.glossary-group { margin-bottom: 1.6rem; }
+.glossary-letter { margin: 0 0 .6rem; padding-bottom: .35rem; border-bottom: 2px solid var(--ieee-blue); font-size: 1.35rem; scroll-margin-top: 5rem; }
+.glossary-group dl { margin: 0; }
+.glossary-group dt { margin-top: .9rem; color: var(--ieee-blue-dark); font-weight: 850; }
+.glossary-group dt:first-child { margin-top: 0; }
+.glossary-group dd { margin: .15rem 0 0; color: var(--ink); }
+
+/* References */
+.reference-group { margin-bottom: 1.6rem; }
+.reference-group h2 { margin-bottom: .5rem; font-size: 1.2rem; }
+.reference-list { margin: 0; padding: 0; list-style: none; }
+.reference-list li { padding: .75rem 0 .75rem 1.4rem; border-bottom: 1px solid var(--line); text-indent: -1.4rem; }
+.reference-list li:last-child { border-bottom: 0; }
+.reference-list .note { display: block; margin-top: .2rem; color: var(--muted); font-size: .88rem; text-indent: 0; }
+.provenance { margin: 0; }
+.provenance dt { margin-top: 1rem; color: var(--ieee-blue-dark); font-weight: 850; }
+.provenance dt:first-child { margin-top: 0; }
+.provenance dd { margin: .2rem 0 0; color: var(--ink); }
