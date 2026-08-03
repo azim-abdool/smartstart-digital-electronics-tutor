@@ -12,4 +12,4 @@ This release completes Module 7: Digital Hardware Practice with nine reconstruct
 6. Sequential Logic
 7. Digital Hardware Practice
 
-The tutor now contains 40 progress-tracked activities. Upload the contents of this folder to the root of the existing GitHub Pages repository. The public URL and WordPress iframe do not change.
+The tutor now contains 40 progress-tracked activities. 
