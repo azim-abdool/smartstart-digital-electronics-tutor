@@ -117,3 +117,42 @@ td select.incorrect { border-color: #b42318; background: #fff0ee; }
 .cost-card strong { display: block; color: var(--ieee-blue); font-size: 1.45rem; }
 @media (max-width: 950px) { .kmap-layout, .timing-layout { grid-template-columns: 1fr; } }
 @media (max-width: 650px) { .kmap-shell { grid-template-columns: 2.5rem repeat(4, minmax(2.8rem, 1fr)); }.kmap-cell { min-height: 3.7rem; }.pi-item { grid-template-columns: auto 1fr; }.pi-item > :last-child { grid-column: 2; }.cost-grid { grid-template-columns: 1fr; } }
+
+/* --- Synthesis with Gates (3.7) ----------------------------------------- */
+.equation-note { margin-bottom: .4rem; color: var(--muted); }
+.expression-prompt { margin: 0 0 1rem; padding: .85rem 1rem; border-radius: .65rem; background: var(--surface-blue); color: var(--ieee-blue-dark); font-size: 1.15rem; font-weight: 900; }
+.kmap-layout { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 1.2rem; align-items: start; }
+.kmap td { min-width: 3.6rem; font-size: 1.05rem; font-weight: 800; transition: background .15s ease; }
+.kmap td.grouped { background: #fff2c2; outline: .18rem solid #f6b700; outline-offset: -.18rem; }
+.group-panel { padding: 1rem; border: 1px solid var(--line); border-radius: .85rem; background: #fbfdff; }
+.group-panel p:first-child { margin-top: 0; }
+.circuit-grid { display: grid; grid-template-columns: minmax(210px, .6fr) minmax(0, 1.7fr); gap: 1.2rem; }
+.gate-controls { padding: 1rem; border: 1px solid var(--line); border-radius: .85rem; background: #fbfdff; }
+.switch-row { display: flex; align-items: center; justify-content: space-between; margin-top: .9rem; padding: .75rem 0; border-top: 1px solid var(--line); font-weight: 800; }
+.bit-switch { position: relative; width: 4rem; height: 2.1rem; border: 0; border-radius: 999px; color: var(--ieee-blue-dark); background: #a9b7c3; cursor: pointer; }
+.bit-switch span { position: absolute; top: .25rem; left: .25rem; display: grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 50%; background: white; box-shadow: 0 2px 6px rgb(0 0 0 / .18); transition: transform .16s ease; }
+.bit-switch[aria-checked="true"] { background: var(--ieee-blue); }
+.bit-switch[aria-checked="true"] span { transform: translateX(1.9rem); }
+.expression-card { margin-top: 1rem; padding: .85rem 1rem; border-radius: .65rem; background: var(--surface-blue); }
+.expression-card span { display: block; color: var(--muted); font-size: .75rem; font-weight: 850; text-transform: uppercase; }
+.expression-card strong { color: var(--ieee-blue-dark); font-size: 1.2rem; }
+.circuit-stage { min-width: 0; padding: .5rem 1rem 1rem; border: 1px solid var(--line); border-radius: .85rem; background: #fbfdff; }
+#synth-diagram { width: 100%; height: auto; min-height: 300px; }
+.wire line, .wire polyline { fill: none; stroke: #a9b7c3; stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+.wire circle { fill: white; stroke: #a9b7c3; stroke-width: 7; }
+.wire text { fill: var(--ieee-blue-dark); font-size: 25px; font-weight: 850; }
+.wire.active line, .wire.active polyline { stroke: #f6b700; }
+.wire.active circle { fill: #f6b700; stroke: #f6b700; }
+.node-label { fill: var(--muted); font-size: 20px; font-weight: 800; }
+.circuit-gate path { fill: #f5fbff; stroke: var(--ieee-blue); stroke-width: 7; stroke-linejoin: round; }
+.circuit-gate .or-back { fill: none; }
+.circuit-gate text { fill: var(--ieee-blue-dark); font-size: 21px; font-weight: 900; }
+.result-box.mismatch { background: #fff0ee; color: #7a2119; }
+.quiz-question { margin: 0 0 1rem; padding: 1rem; border: 1px solid var(--line); border-radius: .7rem; }
+.quiz-question legend { padding: 0 .35rem; color: var(--ieee-blue-dark); font-weight: 850; }
+.quiz-question label { display: block; margin: .45rem 0; }
+@media (max-width: 900px) { .kmap-layout, .circuit-grid { grid-template-columns: 1fr; } }
+.hint { margin-top: 1rem; padding: .75rem .9rem; border-radius: .55rem; background: #fff8dc; }
+.hint summary { color: var(--warning); font-weight: 850; cursor: pointer; }
+.hint p { margin-bottom: 0; }
+.source-note { color: var(--muted); font-size: .88rem; }
